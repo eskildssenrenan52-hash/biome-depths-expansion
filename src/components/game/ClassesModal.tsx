@@ -88,6 +88,26 @@ export default function ClassesModal({ isOpen, onClose, player, onSwitch }: Prop
         pointerEvents: 'auto',
       }}
     >
+      {/* Custom pixel scrollbars for the two scrollable areas in this modal */}
+      <style>{`
+        .rcy-classes-scroll{
+          scrollbar-width: thin;
+          scrollbar-color: #3a4a8a #0a1020;
+        }
+        .rcy-classes-scroll::-webkit-scrollbar{ width: 12px; height: 12px; }
+        .rcy-classes-scroll::-webkit-scrollbar-track{
+          background: #0a1020;
+          border: 1px solid #1a2a4a;
+        }
+        .rcy-classes-scroll::-webkit-scrollbar-thumb{
+          background: linear-gradient(180deg,#3a5acc,#1a2a6a);
+          border: 1px solid #5a7aff;
+          box-shadow: inset 0 0 4px #80a0ff;
+        }
+        .rcy-classes-scroll::-webkit-scrollbar-thumb:hover{
+          background: linear-gradient(180deg,#5a7aff,#2a3a8a);
+        }
+      `}</style>
       <div
         onClick={e => e.stopPropagation()}
         className="rcy-frame"
@@ -106,9 +126,9 @@ export default function ClassesModal({ isOpen, onClose, player, onSwitch }: Prop
             <div style={{ fontWeight: 800, color: '#dfe6ff', letterSpacing: 1 }}>CLASSES</div>
             <button onClick={onClose} className="rcy-btn" style={{ padding: '2px 8px' }}>✕</button>
           </div>
-          <div style={{
+          <div className="rcy-classes-scroll" style={{
             display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 4,
-            overflowY: 'auto', padding: 4, minHeight: 0,
+            overflowY: 'scroll', padding: 4, minHeight: 0,
             background: 'rgba(0,0,0,0.4)', border: '1px solid #1a2a4a',
           }}>
             {CLASSES.map(c => {
@@ -183,9 +203,9 @@ export default function ClassesModal({ isOpen, onClose, player, onSwitch }: Prop
           <div style={{ marginTop: 8, color: '#dfe6ff', fontSize: 12, fontWeight: 700, letterSpacing: 1 }}>
             HABILIDADES ({abilityIds.length})
           </div>
-          <div style={{
+          <div className="rcy-classes-scroll" style={{
             marginTop: 6, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 6,
-            overflowY: 'auto', paddingRight: 4, minHeight: 0,
+            overflowY: 'scroll', paddingRight: 4, minHeight: 0,
           }}>
             {abilityIds.map((aid, idx) => {
               const def = getAbilityDef(aid)
