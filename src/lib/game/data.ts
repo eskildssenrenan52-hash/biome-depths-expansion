@@ -11,6 +11,7 @@ import { generateExtraMap } from './extraBiomes'
 import { generateC2Biome } from './city2Biomes'
 import { generateNewBiome } from './newBiomes'
 import { generateArenaMap } from './arena'
+import { generateExtraFloorMap } from './extraFloorsGen'
 
 import { getExtendedDef, buildExtendedMonsterFromDef, isExtendedType, EXTENDED_MONSTERS, WORLD_BOSSES, type BiomeTag } from './extendedMonsters'
 
@@ -286,6 +287,11 @@ export function generateMap(id: string): GameMap {
     case 'ruins2': return generateAncientRuinsMap(2)
     case 'ruins3': return generateAncientRuinsMap(3)
     default: {
+      // Etapa 2 — andares extras por bioma (`<biome>_xN`, `catacombs_xN`, `dungeon_xN`).
+      // Tem prioridade sobre os fallbacks de biomas novos/extras, que reagiriam só ao id base.
+      const extraFloor = generateExtraFloorMap(id, generateMap)
+      if (extraFloor) return extraFloor
+
       // Endless Tower (procedural endless1..endless999)
       if (id.startsWith('endless')) {
         const f = parseInt(id.replace('endless',''), 10) || 1
