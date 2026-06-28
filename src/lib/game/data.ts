@@ -11,6 +11,7 @@ import { generateExtraMap } from './extraBiomes'
 import { generateC2Biome } from './city2Biomes'
 import { generateNewBiome } from './newBiomes'
 import { generateArenaMap } from './arena'
+import { generateExtraFloorMap } from './extraFloorsGen'
 
 import { getExtendedDef, buildExtendedMonsterFromDef, isExtendedType, EXTENDED_MONSTERS, WORLD_BOSSES, type BiomeTag } from './extendedMonsters'
 
