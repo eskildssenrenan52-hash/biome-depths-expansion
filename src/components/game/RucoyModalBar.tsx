@@ -14,6 +14,7 @@ interface Props {
   isPetsOpen?: boolean
   isEditorOpen?: boolean
   isClassesOpen?: boolean
+  isExtraFloorsOpen?: boolean
   onToggleInventory: () => void
   onToggleQuest: () => void
   onToggleAchievements: () => void
@@ -29,6 +30,7 @@ interface Props {
   onToggleSkinShop?: () => void
   onToggleEnemyCatalog?: () => void
   onToggleClasses?: () => void
+  onToggleExtraFloors?: () => void
   onSave: () => void
 }
 
@@ -38,6 +40,7 @@ type BtnDef = { key: string; icon: string; label: string; shortcut: string }
 
 const MODAL_BUTTONS: BtnDef[] = [
   { key: 'map',          icon: '🗺',  label: 'Mundo',      shortcut: 'M' },
+  { key: 'extrafloors',  icon: '🌀', label: 'Andares Extras', shortcut: 'N' },
   { key: 'inventory',    icon: '🎒', label: 'Inventário', shortcut: 'I' },
   { key: 'classes',      icon: '⚔', label: 'Classes',    shortcut: 'C' },
   { key: 'stats',        icon: '📊', label: 'Status',     shortcut: 'S' },
@@ -71,6 +74,7 @@ function RucoyModalBar({
   isPetsOpen,
   isEditorOpen,
   isClassesOpen,
+  isExtraFloorsOpen,
   onToggleInventory,
   onToggleQuest,
   onToggleAchievements,
@@ -86,12 +90,14 @@ function RucoyModalBar({
   onToggleSkinShop,
   onToggleEnemyCatalog,
   onToggleClasses,
+  onToggleExtraFloors,
   onSave,
 }: Props) {
   const [collapsed, setCollapsed] = useState(false)
 
   const toggleMap: Record<string, () => void> = {
     map: onToggleMap,
+    extrafloors: onToggleExtraFloors ?? (() => {}),
     inventory: onToggleInventory,
     classes: onToggleClasses ?? (() => {}),
     stats: onToggleStats,
@@ -110,6 +116,7 @@ function RucoyModalBar({
 
   const isOpen: Record<string, boolean> = {
     map: isMapOpen,
+    extrafloors: !!isExtraFloorsOpen,
     inventory: isInventoryOpen,
     classes: !!isClassesOpen,
     stats: isStatsOpen,
