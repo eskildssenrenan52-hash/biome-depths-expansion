@@ -51,6 +51,7 @@ import StatsPanel from './StatsPanel'
 import HelpPanel from './HelpPanel'
 import RucoyModalBar from './RucoyModalBar'
 import RucoyWorldModal from './RucoyWorldModal'
+import ExtraFloorsModal from './ExtraFloorsModal'
 import AccountPanel from './AccountPanel'
 import PrestigePanel from './PrestigePanel'
 import SpecPanel from './SpecPanel'
@@ -141,6 +142,7 @@ export default function Game() {
   const [showClasses, setShowClasses] = useState(false)
 
   const [showRucoyWorld, setShowRucoyWorld] = useState(false)
+  const [showExtraFloors, setShowExtraFloors] = useState(false)
   const [showDevPanel, setShowDevPanel] = useState(false)
   const [teleportMode, setTeleportMode] = useState(false)
   const [showQuestPanel, setShowQuestPanel] = useState(false)
@@ -786,6 +788,8 @@ export default function Game() {
               ],
             }
           })}
+          onToggleExtraFloors={() => setShowExtraFloors(v => !v)}
+          isExtraFloorsOpen={showExtraFloors}
           onToggleClasses={() => setShowClasses(v => !v)}
           isClassesOpen={showClasses}
           onSave={handleSave}
@@ -800,6 +804,17 @@ export default function Game() {
         <RucoyWorldModal
           isOpen={showRucoyWorld}
           onClose={() => setShowRucoyWorld(false)}
+          player={gameState.player}
+          currentMapId={gameState.currentMap?.id || 'city'}
+          onMapChange={handleMapChange}
+        />
+      )}
+
+      {/* Andares extras por bioma */}
+      {showExtraFloors && !gameState.editorOpen && gameState.player && (
+        <ExtraFloorsModal
+          isOpen={showExtraFloors}
+          onClose={() => setShowExtraFloors(false)}
           player={gameState.player}
           currentMapId={gameState.currentMap?.id || 'city'}
           onMapChange={handleMapChange}

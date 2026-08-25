@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Input pixel-art usado nos modais (ex.: busca de andares extras) */
+.rcy-input {
+  background: #10131a;
+  border: 2px solid #2b3244;
+  color: var(--rcy-text);
+  font-family: inherit;
+  font-size: 10px;
+  padding: 4px 6px;
+  outline: none;
+}
+.rcy-input:focus { border-color: var(--rcy-gold); }
