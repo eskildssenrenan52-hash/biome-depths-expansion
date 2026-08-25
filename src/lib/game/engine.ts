@@ -1412,7 +1412,14 @@ export function movePlayer(state: GameState, keys: Set<string>): GameState {
       portalTarget = `endless${f + 1}`
     }
 
-    if (isGenericPortal || isBiomePortal) {
+    // Etapa 3 — portais dos andares extras (resolvidos por coordenada)
+    const extraLinks = (map as any)._extraPortals as { x: number; y: number; target: string }[] | undefined
+    if (extraLinks?.length) {
+      const hit = extraLinks.find(l => Math.abs(l.x - ptx) <= 1 && Math.abs(l.y - pty) <= 1)
+      if (hit) portalTarget = hit.target
+    }
+
+    if (!portalTarget && (isGenericPortal || isBiomePortal)) {
       const curId = map.id
       if (isGenericPortal) {
         // Crystal Cave - 10 floors

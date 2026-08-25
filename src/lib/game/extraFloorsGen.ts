@@ -10,7 +10,7 @@ import { EXTRA_FLOOR_BY_ID, type ExtraFloorDef } from './extraFloors'
 import type { GameMap, Monster } from './types'
 
 // Para cada bioma "extra", qual é o id base que delega ao gerador real.
-const BIOME_BASE: Record<string, string> = {
+export const BIOME_BASE: Record<string, string> = {
   city: 'city',
   forest: 'forest',
   dungeon: 'dungeon',
